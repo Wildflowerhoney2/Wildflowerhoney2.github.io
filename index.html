@@ -5,26 +5,36 @@
   <p>Welcome to the Thunderdome!</p>
   <img src="https://media.giphy.com/media/AmzEYMDo9R11m/giphy.gif" />
 <button 
+  id="chat-button"
   onclick="openFrontChat()" 
-  style="background-color: #2563eb; color: white; padding: 10px 20px; border: none; border-radius: 6px; font-family: sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: background-color 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"
-  onmouseover="this.style.backgroundColor='#1d4ed8'"
-  onmouseout="this.style.backgroundColor='#2563eb'"
+  style="background-color: #2563eb; color: white; padding: 10px 20px; border: none; border-radius: 6px; font-family: sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; opacity: 0.5; transition: opacity 0.3s;"
+  disabled
 >
-  Chat with us
+  Loading Chat...
 </button>
 
 <script src="https://chat-assets.frontapp.com/v1/chat.bundle.js" async></script>
 
 <script>
-  // 1. Initialize the chat immediately when the script loads
+  // Initialize and wait for completion
   window.FrontChat('init', {
     chatId: '519f21a12342457e5479e33568d8b7a2', 
-    useDefaultLauncher: false
+    useDefaultLauncher: false,
+    onInitCompleted: function() {
+      // Once ready, enable the button
+      const btn = document.getElementById('chat-button');
+      btn.style.opacity = "1";
+      btn.innerText = "Chat with us";
+      btn.disabled = false;
+      console.log("Front Chat is ready!");
+    }
   });
 
-  // 2. Separate function just to handle the button click
   function openFrontChat() {
-    window.FrontChat('show');
+    // Adding a small check to prevent the iframe error
+    if (typeof window.FrontChat === 'function') {
+      window.FrontChat('show');
+    }
   }
 </script>
 
