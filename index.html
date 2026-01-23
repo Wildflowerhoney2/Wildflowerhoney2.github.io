@@ -5,7 +5,7 @@
   <p>Welcome to the Thunderdome!</p>
   <img src="https://media.giphy.com/media/AmzEYMDo9R11m/giphy.gif" />
 <button 
-  onclick="initFrontChat()" 
+  id="chatButton"
   style="
     background-color: #2563eb; 
     color: white; 
@@ -28,13 +28,22 @@
 <script src="https://chat-assets.frontapp.com/v1/chat.bundle.js" async></script>
 
 <script>
-  function initFrontChat() {
-    window.FrontChat('init', {
-      chatId: '519f21a12342457e5479e33568d8b7a2', 
-      useDefaultLauncher: false
-    });
-    window.FrontChat('show');
-  }
+  let chatInitialized = false;
+  
+  document.getElementById('chatButton').addEventListener('click', function() {
+    if (!chatInitialized) {
+      window.FrontChat('init', {
+        chatId: '519f21a12342457e5479e33568d8b7a2', 
+        useDefaultLauncher: false,
+        onInitCompleted: () => {
+          chatInitialized = true;
+          window.FrontChat('show');
+        }
+      });
+    } else {
+      window.FrontChat('show');
+    }
+  });
 </script>
 
 
