@@ -4,10 +4,15 @@
   <h1>Tia's Chat Testing Site</h1>
   <p>Welcome to the Thunderdome!</p>
   <img src="https://media.giphy.com/media/AmzEYMDo9R11m/giphy.gif" />
-
-     <script src='https://chat-assets.frontapp.com/v1/chat.bundle.js'></script>
+<button onclick="initFrontChat()">Init chat</button>
+<script src="https://chat-assets.frontapp.com/v1/chat.bundle.js" onload="initFrontChat()" async></script>
 <script>
-  window.FrontChat('init', {chatId: '519f21a12342457e5479e33568d8b7a2', useDefaultLauncher: true });
+  function initFrontChat() {
+    window.FrontChat('init', {chatId: '519f21a12342457e5479e33568d8b7a2', useDefaultLauncher: true});
+    setTimeout(function(){
+      window.FrontChat('show');
+    }, 1000);
+  };
 </script>
 
  <form
