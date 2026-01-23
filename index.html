@@ -4,13 +4,32 @@
   <h1>Tia's Chat Testing Site</h1>
   <p>Welcome to the Thunderdome!</p>
   <img src="https://media.giphy.com/media/AmzEYMDo9R11m/giphy.gif" />
-<button onclick="initFrontChat()">Init chat</button>
+<button 
+  onclick="initFrontChat()" 
+  style="
+    background-color: #2563eb; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 6px; 
+    font-family: sans-serif; 
+    font-size: 14px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: background-color 0.2s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  "
+  onmouseover="this.style.backgroundColor='#1d4ed8'"
+  onmouseout="this.style.backgroundColor='#2563eb'"
+>
+  Init chat
+</button>
 <script src="https://chat-assets.frontapp.com/v1/chat.bundle.js" onload="initFrontChat()" async></script>
 <script>
   function initFrontChat() {
     window.FrontChat('init', {chatId: '519f21a12342457e5479e33568d8b7a2', useDefaultLauncher: false});
     setTimeout(function(){
-      window.FrontChat('hide');
+      window.FrontChat('show');
     }, 1000);
   };
 </script>
