@@ -4,53 +4,10 @@
   <h1>Tia's Chat Testing Site</h1>
   <p>Welcome to the Thunderdome!</p>
   <img src="https://media.giphy.com/media/AmzEYMDo9R11m/giphy.gif" />
-<button 
-  id="chatButton"
-  style="
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #2563eb; 
-    color: white; 
-    padding: 10px 20px; 
-    border: none; 
-    border-radius: 6px; 
-    font-family: sans-serif; 
-    font-size: 14px; 
-    font-weight: 600; 
-    cursor: pointer; 
-    transition: background-color 0.2s;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    z-index: 1000;
-  "
-  onmouseover="this.style.backgroundColor='#1d4ed8'"
-  onmouseout="this.style.backgroundColor='#2563eb'"
->
-  Chat with us
-</button>
-
-<script src="https://chat-assets.frontapp.com/v1/chat.bundle.js" async></script>
-
+<script src='https://chat-assets.frontapp.com/v1/chat.bundle.js'></script>
 <script>
-  let chatInitialized = false;
-  
-  document.getElementById('chatButton').addEventListener('click', function() {
-    if (!chatInitialized) {
-      window.FrontChat('init', {
-        chatId: '519f21a12342457e5479e33568d8b7a2', 
-        useDefaultLauncher: false,
-        onInitCompleted: () => {
-          chatInitialized = true;
-          window.FrontChat('show');
-        }
-      });
-    } else {
-      window.FrontChat('show');
-    }
-  });
+  window.FrontChat('init', {chatId: '519f21a12342457e5479e33568d8b7a2', useDefaultLauncher: true});
 </script>
-
-
 
 <form
   method="POST"
