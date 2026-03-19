@@ -1,47 +1,270 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tia's Chat Testing Site</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
- <body>
-  <h1>Tia's Chat Testing Site</h1>
-  <p>Welcome to the Thunderdome!</p>
-  <img src="https://media.giphy.com/media/AmzEYMDo9R11m/giphy.gif" />
-<script src='https://chat-assets.frontapp.com/v1/chat.bundle.js'></script>
-<script>
-  window.FrontChat('init', {chatId: '519f21a12342457e5479e33568d8b7a2', useDefaultLauncher: true});
-</script>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px 80px;
+      color: #1a1a2e;
+    }
 
-<form
-  method="POST"
-  name="fa-form-1"
-  action="https://webhook.frontapp.com/forms/f17350d4a97bbb3d8d6f/eH2EFh8SM3PVrEFW8PC5ofKhgQAp1U2XBZRivaVcUbYiXxq0AcujpgyfSxij2SrnJv4VTBF0bezX9RUOIQoDfYAD2agzwdguZkZ7f5ryRfHxF8uDgFJR9pnf3QxdnA"
-  enctype="multipart/form-data"
-  accept-charset="utf-8"
->
-<input type="hidden" name="autoreply-from" value="demo-group@cloudcontentconsulting.com">
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      margin-bottom: 40px;
+      color: white;
+    }
 
-  <div>
-    <label for="name">Name</label>
-    <input type="text" name="name">
+    .hero-gif {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgba(255,255,255,0.6);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      font-weight: 300;
+      opacity: 0.9;
+      margin-top: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: white;
+      border-radius: 24px;
+      padding: 40px 44px;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.18);
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #5a4fcf;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #667eea33, transparent);
+      border-radius: 2px;
+    }
+
+    /* ── Form ── */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 7px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.97rem;
+      color: #1a1a2e;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #fafafa;
+      outline: none;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    textarea:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 4px rgba(102,126,234,0.12);
+      background: white;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    /* File upload */
+    .file-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border: 2px dashed #d1d5db;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #9ca3af;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
+      background: #fafafa;
+    }
+
+    .file-label:hover {
+      border-color: #667eea;
+      color: #667eea;
+    }
+
+    .file-label svg { flex-shrink: 0; }
+
+    input[type="file"] { display: none; }
+
+    /* Submit button */
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 18px rgba(102,126,234,0.35);
+      margin-top: 8px;
+    }
+
+    .btn-submit:hover  { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(102,126,234,0.45); }
+    .btn-submit:active { transform: translateY(0);    box-shadow: 0 2px 10px rgba(102,126,234,0.3); }
+
+    /* Chat button */
+    .btn-chat {
+      margin-top: 20px;
+      width: 100%;
+      padding: 13px;
+      background: white;
+      color: #667eea;
+      border: 2px solid #667eea;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 0.97rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-chat:hover { background: #667eea; color: white; }
+
+    #html_element { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Hero -->
+  <div class="hero">
+    <img class="hero-gif" src="https://media.giphy.com/media/AmzEYMDo9R11m/giphy.gif" alt="Welcome gif" />
+    <h1>Tia's Chat Testing Site</h1>
+    <p>Welcome to the Thunderdome! ⚡</p>
   </div>
 
-  <div>
-    <label for="email">Email</label>
-    <input type="email" name="email">
+  <!-- Card -->
+  <div class="card">
+    <div class="card-title">
+      <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Send a Message
+    </div>
+
+    <form
+      method="POST"
+      name="fa-form-1"
+      action="https://webhook.frontapp.com/forms/f17350d4a97bbb3d8d6f/eH2EFh8SM3PVrEFW8PC5ofKhgQAp1U2XBZRivaVcUbYiXxq0AcujpgyfSxij2SrnJv4VTBF0bezX9RUOIQoDfYAD2agzwdguZkZ7f5ryRfHxF8uDgFJR9pnf3QxdnA"
+      enctype="multipart/form-data"
+      accept-charset="utf-8"
+    >
+      <input type="hidden" name="autoreply-from" value="demo-group@cloudcontentconsulting.com">
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your full name" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" />
+      </div>
+
+      <div class="form-group">
+        <label for="body">Message</label>
+        <textarea id="body" name="body" placeholder="Write your message here…"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Attachment</label>
+        <label class="file-label" for="attachment">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+          <span id="file-text">Click to attach a file</span>
+        </label>
+        <input type="file" id="attachment" name="attachment" onchange="document.getElementById('file-text').textContent = this.files[0]?.name || 'Click to attach a file'">
+      </div>
+
+      <div id="html_element"></div>
+
+      <button type="submit" class="btn-submit">Send Message</button>
+    </form>
+
+    <button class="btn-chat" onclick="FrontChat('show')">
+      <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Open Live Chat
+    </button>
   </div>
 
-  <div>
-    <textarea name="body"></textarea>
-  </div>
+  <!-- Front chat -->
+  <script src='https://chat-assets.frontapp.com/v1/chat.bundle.js'></script>
+  <script>
+    window.FrontChat('init', {chatId: '519f21a12342457e5479e33568d8b7a2', useDefaultLauncher: true});
+  </script>
 
-  <div>
-    <input type="file" name="attachment">
-  </div>
-
-   <div id="html_element"></div>
-  <div>
-    <input type="submit" value="Send">
-  </div></form>
-
-   <button onclick = "FrontChat()"> click me !</button> 
 </body>
- 
 </html>
